@@ -39,6 +39,7 @@
         <th>Responses</th>
         <th class="ngb-tooltip-class" ngbTooltip="Number of students submitted / Class size" container="body"><span >Response Rate</span></th>
         <th class="text-center">Action(s)</th>
+        <th class="text-center" *ngIf="columnsToShow.includes(SessionsTableColumn.LAST_EDIT_DATE)">Last edit</th>
       </tr>
       </thead>
       <tbody>
@@ -125,6 +126,8 @@
             </div>
           </div>
         </td>
+        <td *ngIf="columnsToShow.includes(SessionsTableColumn.LAST_EDIT_DATE)">
+          <span class="ngb-tooltip-class" [ngbTooltip]="sessionsTableRowModel.feedbackSession.sessionLastEditTimestamp | formatDateDetail: sessionsTableRowModel.feedbackSession.timeZone" >{{ sessionsTableRowModel.feedbackSession.sessionLastEditTimestamp | formatDateBrief: sessionsTableRowModel.feedbackSession.timeZone }}</span></td>
       </tr>
       </tbody>
     </table>

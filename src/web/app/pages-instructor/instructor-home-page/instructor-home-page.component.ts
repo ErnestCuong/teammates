@@ -208,6 +208,7 @@ export class InstructorHomePageComponent extends InstructorSessionModalPageCompo
       this.feedbackSessionsService.getFeedbackSessionsForInstructor(model.course.courseId)
           .subscribe((response: FeedbackSessions) => {
             response.feedbackSessions.forEach((feedbackSession: FeedbackSession) => {
+//               console.log(feedbackSession);
               const m: SessionsTableRowModel = {
                 feedbackSession,
                 responseRate: '',

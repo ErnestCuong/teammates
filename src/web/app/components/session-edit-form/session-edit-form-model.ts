@@ -40,6 +40,9 @@ export interface SessionEditFormModel {
   submissionEndDate: DateFormat;
   gracePeriod: number;
 
+  sessionLastEditTime: TimeFormat;
+  sessionLastEditDate: DateFormat;
+
   sessionVisibleSetting: SessionVisibleSetting;
   customSessionVisibleTime: TimeFormat;
   customSessionVisibleDate: DateFormat;

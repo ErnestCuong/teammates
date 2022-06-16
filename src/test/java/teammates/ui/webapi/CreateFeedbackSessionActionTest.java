@@ -208,6 +208,7 @@ public class CreateFeedbackSessionActionTest extends BaseActionTest<CreateFeedba
 
         createRequest.setSubmissionStartTimestamp(1444003051000L);
         createRequest.setSubmissionEndTimestamp(1546003051000L);
+        createRequest.setSessionLastEditTimestamp(1444003051000L);
         createRequest.setGracePeriod(5);
 
         createRequest.setSessionVisibleSetting(SessionVisibleSetting.CUSTOM);
@@ -231,6 +232,7 @@ public class CreateFeedbackSessionActionTest extends BaseActionTest<CreateFeedba
 
         createRequest.setSubmissionStartTimestamp(toCopySession.getStartTime().toEpochMilli());
         createRequest.setSubmissionEndTimestamp(toCopySession.getEndTime().toEpochMilli());
+        createRequest.setSessionLastEditTimestamp(toCopySession.getSessionLastEditTime().toEpochMilli());
         createRequest.setGracePeriod(toCopySession.getGracePeriodMinutes());
 
         createRequest.setSessionVisibleSetting(SessionVisibleSetting.CUSTOM);

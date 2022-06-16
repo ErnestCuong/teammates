@@ -48,6 +48,9 @@ export const EXAMPLE_SESSION_EDIT_FORM_MODEL: SessionEditFormModel = {
   submissionEndDate: { year: 2020, month: 3, day: 13 },
   gracePeriod: 0,
 
+  sessionLastEditTime: { hour: 10, minute: 0 },
+  sessionLastEditDate: { year: 2020, month: 3, day: 13 },
+
   sessionVisibleSetting: SessionVisibleSetting.AT_OPEN,
   customSessionVisibleTime: { hour: 9, minute: 0 },
   customSessionVisibleDate: { year: 2020, month: 3, day: 13 },
@@ -187,6 +190,7 @@ export const EXAMPLE_FEEDBACK_SESSION: FeedbackSession = {
   instructions: 'Enter your feedback for projects',
   submissionStartTimestamp: 0,
   submissionEndTimestamp: 0,
+  sessionLastEditTimestamp: 0,
   gracePeriod: 0,
   sessionVisibleSetting: SessionVisibleSetting.AT_OPEN,
   responseVisibleSetting: ResponseVisibleSetting.AT_VISIBLE,

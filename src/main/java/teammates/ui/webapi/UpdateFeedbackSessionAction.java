@@ -83,6 +83,8 @@ class UpdateFeedbackSessionAction extends Action {
                 updateRequest.getSubmissionStartTime(), timeZone, true);
         Instant endTime = TimeHelper.getMidnightAdjustedInstantBasedOnZone(
                 updateRequest.getSubmissionEndTime(), timeZone, true);
+        Instant sessionLastEditTime = TimeHelper.getMidnightAdjustedInstantBasedOnZone(
+                updateRequest.getSessionLastEditTime(), timeZone, true);
         Instant sessionVisibleTime = TimeHelper.getMidnightAdjustedInstantBasedOnZone(
                 updateRequest.getSessionVisibleFromTime(), timeZone, true);
         Instant resultsVisibleTime = TimeHelper.getMidnightAdjustedInstantBasedOnZone(
@@ -101,6 +103,7 @@ class UpdateFeedbackSessionAction extends Action {
                             .withInstructions(updateRequest.getInstructions())
                             .withStartTime(startTime)
                             .withEndTime(endTime)
+                            .withSessionLastEditTime(sessionLastEditTime)
                             .withGracePeriod(updateRequest.getGracePeriod())
                             .withSessionVisibleFromTime(sessionVisibleTime)
                             .withResultsVisibleFromTime(resultsVisibleTime)

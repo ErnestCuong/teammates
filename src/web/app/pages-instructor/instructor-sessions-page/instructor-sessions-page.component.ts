@@ -52,6 +52,8 @@ import {
 import {
   SessionsPermanentDeletionConfirmModalComponent,
 } from './sessions-permanent-deletion-confirm-modal/sessions-permanent-deletion-confirm-modal.component';
+import { DateFormat } from '../../components/datepicker/datepicker.component';
+import { TimeFormat } from '../../components/timepicker/timepicker.component';
 
 interface RecycleBinFeedbackSessionRowModel {
   feedbackSession: FeedbackSession;
@@ -94,6 +96,9 @@ export class InstructorSessionsPageComponent extends InstructorSessionModalPageC
     submissionEndTime: { hour: 23, minute: 59 },
     submissionEndDate: { year: 0, month: 0, day: 0 },
     gracePeriod: 15,
+
+    sessionLastEditTime: { hour: 23, minute: 59 },
+    sessionLastEditDate: { year: 0, month: 0, day: 0 },
 
     sessionVisibleSetting: SessionVisibleSetting.AT_OPEN,
     customSessionVisibleTime: { hour: 23, minute: 59 },
@@ -273,7 +278,7 @@ export class InstructorSessionsPageComponent extends InstructorSessionModalPageC
   /**
    * Adds a new feedback session.
    */
-  addNewSessionHandler(): void {
+  addNewSessionHandler(now: Date): void {
     this.sessionEditFormModel.isSaving = true;
 
     const submissionStartTime: number = this.timezoneService.resolveLocalDateTime(
@@ -281,6 +286,18 @@ export class InstructorSessionsPageComponent extends InstructorSessionModalPageC
         this.sessionEditFormModel.timeZone, true);
     const submissionEndTime: number = this.timezoneService.resolveLocalDateTime(
         this.sessionEditFormModel.submissionEndDate, this.sessionEditFormModel.submissionEndTime,
+        this.sessionEditFormModel.timeZone, true);
+    const currentDate: DateFormat = {
+      year: now.getFullYear(),
+      month: now.getMonth(),
+      day: now.getDate(),
+    };
+    const currentTime: TimeFormat = {
+      minute: now.getMinutes(),
+      hour: now.getHours(),
+    };
+    const sessionLastEditTime: number = this.timezoneService.resolveLocalDateTime(
+        currentDate, currentTime,
         this.sessionEditFormModel.timeZone, true);
     let sessionVisibleTime: number = 0;
     if (this.sessionEditFormModel.sessionVisibleSetting === SessionVisibleSetting.CUSTOM) {
@@ -301,6 +318,7 @@ export class InstructorSessionsPageComponent extends InstructorSessionModalPageC
 
       submissionStartTimestamp: submissionStartTime,
       submissionEndTimestamp: submissionEndTime,
+      sessionLastEditTimestamp: sessionLastEditTime,
       gracePeriod: this.sessionEditFormModel.gracePeriod,
 
       sessionVisibleSetting: this.sessionEditFormModel.sessionVisibleSetting,

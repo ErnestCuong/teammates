@@ -22,6 +22,7 @@ public class FeedbackSessionData extends ApiOutput {
 
     private final Long submissionStartTimestamp;
     private final Long submissionEndTimestamp;
+    private final Long sessionLastEditTimestamp;
     @Nullable
     private final Long submissionEndWithExtensionTimestamp;
     @Nullable
@@ -63,6 +64,8 @@ public class FeedbackSessionData extends ApiOutput {
                 feedbackSessionAttributes.getStartTime(), timeZone, true).toEpochMilli();
         this.submissionEndTimestamp = TimeHelper.getMidnightAdjustedInstantBasedOnZone(
                 feedbackSessionAttributes.getEndTime(), timeZone, true).toEpochMilli();
+        this.sessionLastEditTimestamp = TimeHelper.getMidnightAdjustedInstantBasedOnZone(
+                feedbackSessionAttributes.getSessionLastEditTime(), timeZone, true).toEpochMilli();
         this.submissionEndWithExtensionTimestamp = TimeHelper.getMidnightAdjustedInstantBasedOnZone(
                 feedbackSessionAttributes.getDeadline(), timeZone, true).toEpochMilli();
         this.gracePeriod = feedbackSessionAttributes.getGracePeriodMinutes();
@@ -161,6 +164,10 @@ public class FeedbackSessionData extends ApiOutput {
 
     public long getSubmissionEndTimestamp() {
         return submissionEndTimestamp;
+    }
+
+    public long getSessionLastEditTimeStamp() {
+        return sessionLastEditTimestamp;
     }
 
     public long getSubmissionEndWithExtensionTimestamp() {

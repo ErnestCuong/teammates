@@ -1,5 +1,5 @@
 <tm-loading-retry [shouldShowRetry]="hasLoadingFeedbackSessionFailed" [message]="'Failed to load feedback session'" (retryEvent)="loadFeedbackSession()">
-  <tm-session-edit-form *tmIsLoading="isLoadingFeedbackSession" [formMode]="SessionEditFormMode.EDIT" [(model)]="sessionEditFormModel" (editExistingSessionEvent)="editExistingSessionHandler()" (cancelEditingSessionEvent)="cancelEditingSessionHandler()"
+  <tm-session-edit-form *tmIsLoading="isLoadingFeedbackSession" [formMode]="SessionEditFormMode.EDIT" [(model)]="sessionEditFormModel" (editExistingSessionEvent)="editExistingSessionHandler($event)" (cancelEditingSessionEvent)="cancelEditingSessionHandler()"
                       (deleteExistingSessionEvent)="deleteExistingSessionHandler()" (copyCurrentSessionEvent)="copyCurrentSession()"></tm-session-edit-form>
 </tm-loading-retry>
 

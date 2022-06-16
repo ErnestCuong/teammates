@@ -675,6 +675,7 @@ public class UpdateFeedbackSessionActionTest extends BaseActionTest<UpdateFeedba
 
         updateRequest.setSubmissionStartTimestamp(1444003051000L);
         updateRequest.setSubmissionEndTimestamp(1546003051000L);
+        updateRequest.setSessionLastEditTimestamp(1444003051000L);
         updateRequest.setGracePeriod(5);
 
         updateRequest.setSessionVisibleSetting(SessionVisibleSetting.CUSTOM);

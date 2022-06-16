@@ -40,6 +40,11 @@ export enum SessionsTableColumn {
    * End date of the feedback session column.
    */
   END_DATE,
+
+  /**
+  * Last modified date of the feedback session column.
+  */
+  LAST_EDIT_DATE,
 }
 
 /**

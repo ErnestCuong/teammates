@@ -45,6 +45,7 @@ export class GqrRqgViewResponsesComponent extends InstructorResponsesViewBase im
     submissionStartTimestamp: 0,
     submissionEndTimestamp: 0,
     gracePeriod: 0,
+    sessionLastEditTimestamp: 0,
     sessionVisibleSetting: SessionVisibleSetting.AT_OPEN,
     responseVisibleSetting: ResponseVisibleSetting.AT_VISIBLE,
     submissionStatus: FeedbackSessionSubmissionStatus.OPEN,

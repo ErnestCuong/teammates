@@ -49,6 +49,8 @@ public class FeedbackSession extends BaseEntity {
     @Translate(InstantTranslatorFactory.class)
     private Instant endTime;
 
+    private Instant sessionLastEditTime;
+
     @Translate(InstantTranslatorFactory.class)
     private Instant sessionVisibleFromTime;
 
@@ -90,7 +92,7 @@ public class FeedbackSession extends BaseEntity {
     }
 
     public FeedbackSession(String feedbackSessionName, String courseId, String creatorEmail,
-            String instructions, Instant createdTime, Instant deletedTime, Instant startTime, Instant endTime,
+            String instructions, Instant createdTime, Instant deletedTime, Instant startTime, Instant endTime, Instant sessionLastEditTime,
             Instant sessionVisibleFromTime, Instant resultsVisibleFromTime, String timeZone, long gracePeriod,
             boolean sentOpeningSoonEmail, boolean sentOpenEmail, boolean sentClosingEmail,
             boolean sentClosedEmail, boolean sentPublishedEmail, boolean isOpeningEmailEnabled,
@@ -104,6 +106,7 @@ public class FeedbackSession extends BaseEntity {
         this.deletedTime = deletedTime;
         this.startTime = startTime;
         this.endTime = endTime;
+        this.sessionLastEditTime = sessionLastEditTime;
         this.sessionVisibleFromTime = sessionVisibleFromTime;
         this.resultsVisibleFromTime = resultsVisibleFromTime;
         this.timeZone = timeZone;
@@ -191,6 +194,14 @@ public class FeedbackSession extends BaseEntity {
 
     public void setEndTime(Instant endTime) {
         this.endTime = endTime;
+    }
+
+    public Instant getSessionLastEditTime() {
+        return sessionLastEditTime;
+    }
+
+    public void setSessionLastEditTime(Instant sessionLastEditTime) {
+        this.sessionLastEditTime = sessionLastEditTime;
     }
 
     public Instant getSessionVisibleFromTime() {
@@ -308,12 +319,17 @@ public class FeedbackSession extends BaseEntity {
     @Override
     public String toString() {
         return "FeedbackSession [feedbackSessionName=" + feedbackSessionName
-                + ", courseId=" + courseId + ", creatorId=" + creatorEmail
-                + ", instructions=" + instructions + ", createdTime="
-                + createdTime + ", deletedTime=" + deletedTime + ", startTime=" + startTime
-                + ", endTime=" + endTime + ", sessionVisibleFromTime="
-                + sessionVisibleFromTime + ", resultsVisibleFromTime="
-                + resultsVisibleFromTime + ", timeZone=" + timeZone
+                + ", courseId=" + courseId
+                + ", creatorId=" + creatorEmail
+                + ", instructions=" + instructions
+                + ", createdTime=" + createdTime
+                + ", deletedTime=" + deletedTime
+                + ", startTime=" + startTime
+                + ", endTime=" + endTime
+                + ", sessionLastEditTime=" + sessionLastEditTime
+                + ", sessionVisibleFromTime=" + sessionVisibleFromTime
+                + ", resultsVisibleFromTime=" + resultsVisibleFromTime
+                + ", timeZone=" + timeZone
                 + ", gracePeriod=" + gracePeriod
                 + ", sentOpeningSoonEmail=" + sentOpeningSoonEmail
                 + ", sentOpenEmail=" + sentOpenEmail
