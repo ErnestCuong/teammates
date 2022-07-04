@@ -124,6 +124,7 @@
   },
   "defaultProject": "teammates",
   "cli": {
+    "analytics": "0149d424-ea8e-4ee9-a635-80fc95f3e2f8",
     "defaultCollection": "@angular-eslint/schematics"
   }
 }
