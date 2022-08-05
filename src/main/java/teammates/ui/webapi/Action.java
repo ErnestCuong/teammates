@@ -108,6 +108,7 @@ public abstract class Action {
         }
 
         System.out.println("abc");
+        System.out.println("abc");
 
         // All other cases: to be dealt in case-by-case basis
         checkSpecificAccessControl();
