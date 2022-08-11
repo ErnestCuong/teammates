@@ -81,6 +81,13 @@ public class CourseRoster {
      * Returns the instructor object for the given email.
      */
     public InstructorAttributes getInstructorForEmail(String email) {
+        InstructorAttributes instructorToReturn = instructorListByEmail.get(email);
+
+        if (instructorToReturn == null) {
+            // Valid course ID cannot be an empty string,
+            // so for invalid instructor we can use it to avoid clashing
+            return InstructorAttributes.builder("", email).withName("Instructor has quit").build();
+        }
         return instructorListByEmail.get(email);
     }
 
