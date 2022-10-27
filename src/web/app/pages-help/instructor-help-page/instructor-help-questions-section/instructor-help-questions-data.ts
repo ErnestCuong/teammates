@@ -523,6 +523,7 @@ export const EXAMPLE_FEEDBACK_SESSION: FeedbackSession = {
   instructions: 'Enter your feedback for projects',
   submissionStartTimestamp: 0,
   submissionEndTimestamp: 0,
+  sessionLastEditTimestamp: 0,
   gracePeriod: 0,
   sessionVisibleSetting: SessionVisibleSetting.AT_OPEN,
   responseVisibleSetting: ResponseVisibleSetting.AT_VISIBLE,

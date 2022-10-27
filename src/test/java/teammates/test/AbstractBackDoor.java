@@ -547,6 +547,7 @@ public abstract class AbstractBackDoor {
                 .withInstructions(sessionData.getInstructions())
                 .withStartTime(Instant.ofEpochMilli(sessionData.getSubmissionStartTimestamp()))
                 .withEndTime(Instant.ofEpochMilli(sessionData.getSubmissionEndTimestamp()))
+                .withSessionLastEditTime(Instant.ofEpochMilli(sessionData.getSessionLastEditTimeStamp()))
                 .withTimeZone(sessionData.getTimeZone())
                 .withGracePeriod(Duration.ofMinutes(sessionData.getGracePeriod()))
                 .withIsClosingEmailEnabled(sessionData.getIsClosingEmailEnabled())

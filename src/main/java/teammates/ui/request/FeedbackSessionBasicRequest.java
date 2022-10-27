@@ -17,6 +17,7 @@ public class FeedbackSessionBasicRequest extends BasicRequest {
 
     private long submissionStartTimestamp;
     private long submissionEndTimestamp;
+    private long sessionLastEditTimestamp;
     private long gracePeriod;
 
     private SessionVisibleSetting sessionVisibleSetting;
@@ -40,6 +41,10 @@ public class FeedbackSessionBasicRequest extends BasicRequest {
 
     public Instant getSubmissionEndTime() {
         return Instant.ofEpochMilli(submissionEndTimestamp);
+    }
+
+    public Instant getSessionLastEditTime() {
+        return Instant.ofEpochMilli(sessionLastEditTimestamp);
     }
 
     public Duration getGracePeriod() {
@@ -94,6 +99,10 @@ public class FeedbackSessionBasicRequest extends BasicRequest {
 
     public void setSubmissionEndTimestamp(long submissionEndTimestamp) {
         this.submissionEndTimestamp = submissionEndTimestamp;
+    }
+
+    public void setSessionLastEditTimestamp(long sessionLastEditTimestamp) {
+        this.sessionLastEditTimestamp = sessionLastEditTimestamp;
     }
 
     public void setGracePeriod(long gracePeriod) {

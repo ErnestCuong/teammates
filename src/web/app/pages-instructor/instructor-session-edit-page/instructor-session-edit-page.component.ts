@@ -112,6 +112,9 @@ export class InstructorSessionEditPageComponent extends InstructorSessionBasePag
     submissionEndDate: getDefaultDateFormat(),
     gracePeriod: 0,
 
+    sessionLastEditTime: { hour: 23, minute: 59 },
+    sessionLastEditDate: { year: 0, month: 0, day: 0 },
+
     sessionVisibleSetting: SessionVisibleSetting.AT_OPEN,
     customSessionVisibleTime: getLatestTimeFormat(),
     customSessionVisibleDate: getDefaultDateFormat(),
@@ -253,6 +256,7 @@ export class InstructorSessionEditPageComponent extends InstructorSessionBasePag
         this.isLoadingFeedbackSession = false;
       }))
       .subscribe((feedbackSession: FeedbackSession) => {
+        console.log(feedbackSession);
         this.sessionEditFormModel = this.getSessionEditFormModel(feedbackSession, this.isEditingMode);
         this.feedbackSessionModelBeforeEditing = this.getSessionEditFormModel(feedbackSession);
       }, (resp: ErrorMessageOutput) => {
@@ -324,6 +328,9 @@ export class InstructorSessionEditPageComponent extends InstructorSessionBasePag
         this.datetimeService.getDateTimeAtTimezone(feedbackSession.submissionEndTimestamp,
           feedbackSession.timeZone, true);
 
+    const lastEdit: { date: DateFormat, time: TimeFormat } =
+        this.getDateTimeAtTimezone(feedbackSession.submissionEndTimestamp, feedbackSession.timeZone, true);
+
     const model: SessionEditFormModel = {
       isEditable,
       courseId: feedbackSession.courseId,
@@ -337,6 +344,9 @@ export class InstructorSessionEditPageComponent extends InstructorSessionBasePag
       submissionEndTime: submissionEnd.time,
       submissionEndDate: submissionEnd.date,
       gracePeriod: feedbackSession.gracePeriod,
+
+      sessionLastEditTime: lastEdit.time,
+      sessionLastEditDate: lastEdit.date,
 
       sessionVisibleSetting: feedbackSession.sessionVisibleSetting,
       customSessionVisibleTime: getLatestTimeFormat(),
@@ -387,7 +397,7 @@ export class InstructorSessionEditPageComponent extends InstructorSessionBasePag
   /**
    * Handles editing existing session event.
    */
-  editExistingSessionHandler(): void {
+  editExistingSessionHandler(now: Date): void {
     this.feedbackSessionModelBeforeEditing = JSON.parse(JSON.stringify(this.sessionEditFormModel));
 
     const submissionStartTime: number = this.timezoneService.resolveLocalDateTime(
@@ -396,7 +406,21 @@ export class InstructorSessionEditPageComponent extends InstructorSessionBasePag
     const submissionEndTime: number = this.timezoneService.resolveLocalDateTime(
         this.sessionEditFormModel.submissionEndDate, this.sessionEditFormModel.submissionEndTime,
         this.sessionEditFormModel.timeZone, true);
+    const currentDate: DateFormat = {
+      year: now.getFullYear(),
+      month: now.getMonth(),
+      day: now.getDate(),
+    };
+    const currentTime: TimeFormat = {
+      minute: now.getMinutes(),
+      hour: now.getHours(),
+    };
+    const sessionLastEditTime: number = this.timezoneService.resolveLocalDateTime(
+        currentDate, currentTime,
+        this.sessionEditFormModel.timeZone, true);
+
     let sessionVisibleTime: number = 0;
+
     if (this.sessionEditFormModel.sessionVisibleSetting === SessionVisibleSetting.CUSTOM) {
       sessionVisibleTime = this.timezoneService.resolveLocalDateTime(
           this.sessionEditFormModel.customSessionVisibleDate, this.sessionEditFormModel.customSessionVisibleTime,
@@ -411,12 +435,12 @@ export class InstructorSessionEditPageComponent extends InstructorSessionBasePag
 
     this.deleteDeadlineExtensionsHandler(submissionEndTime).subscribe((isUpdateSession) => {
       if (isUpdateSession) {
-        this.updateFeedbackSession(submissionStartTime, submissionEndTime, sessionVisibleTime, responseVisibleTime);
+        this.updateFeedbackSession(submissionStartTime, submissionEndTime, sessionLastEditTime, sessionVisibleTime, responseVisibleTime);
       }
     });
   }
 
-  updateFeedbackSession(submissionStartTime: number, submissionEndTime: number, sessionVisibleTime: number,
+  updateFeedbackSession(submissionStartTime: number, submissionEndTime: number,  sessionLastEditTime: number, sessionVisibleTime: number,
     responseVisibleTime: number): void {
     this.sessionEditFormModel.isSaving = true;
     this.sessionEditFormModel.isEditable = false;
@@ -425,7 +449,9 @@ export class InstructorSessionEditPageComponent extends InstructorSessionBasePag
 
       submissionStartTimestamp: submissionStartTime,
       submissionEndTimestamp: submissionEndTime,
+      sessionLastEditTimestamp: sessionLastEditTime,
       gracePeriod: this.sessionEditFormModel.gracePeriod,
+
 
       sessionVisibleSetting: this.sessionEditFormModel.sessionVisibleSetting,
       customSessionVisibleTimestamp: sessionVisibleTime,

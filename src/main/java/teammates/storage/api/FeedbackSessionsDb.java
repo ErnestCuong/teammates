@@ -257,6 +257,7 @@ public final class FeedbackSessionsDb extends EntitiesDb<FeedbackSession, Feedba
         feedbackSession.setInstructions(newAttributes.getInstructions());
         feedbackSession.setStartTime(newAttributes.getStartTime());
         feedbackSession.setEndTime(newAttributes.getEndTime());
+        feedbackSession.setSessionLastEditTime(newAttributes.getSessionLastEditTime());
         feedbackSession.setSessionVisibleFromTime(newAttributes.getSessionVisibleFromTime());
         feedbackSession.setResultsVisibleFromTime(newAttributes.getResultsVisibleFromTime());
         feedbackSession.setTimeZone(newAttributes.getTimeZone());
@@ -390,6 +391,9 @@ public final class FeedbackSessionsDb extends EntitiesDb<FeedbackSession, Feedba
     }
 
     private FeedbackSession getFeedbackSessionEntity(String feedbackSessionName, String courseId) {
+//        FeedbackSession toReturn = load().id(FeedbackSession.generateId(feedbackSessionName, courseId)).now();
+//        System.out.println(toReturn);
+//        return toReturn;
         return load().id(FeedbackSession.generateId(feedbackSessionName, courseId)).now();
     }
 

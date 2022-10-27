@@ -59,6 +59,7 @@ export abstract class InstructorSessionBasePageComponent {
 
       submissionStartTimestamp: fromFeedbackSession.submissionStartTimestamp,
       submissionEndTimestamp: fromFeedbackSession.submissionEndTimestamp,
+      sessionLastEditTimestamp: fromFeedbackSession.sessionLastEditTimestamp,
       gracePeriod: fromFeedbackSession.gracePeriod,
 
       sessionVisibleSetting: fromFeedbackSession.sessionVisibleSetting,

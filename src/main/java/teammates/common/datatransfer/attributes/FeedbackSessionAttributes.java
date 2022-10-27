@@ -29,6 +29,7 @@ public final class FeedbackSessionAttributes extends EntityAttributes<FeedbackSe
     private Instant deletedTime;
     private Instant startTime;
     private Instant endTime;
+    private Instant sessionLastEditTime;
     private Instant sessionVisibleFromTime;
     private Instant resultsVisibleFromTime;
     private String timeZone;
@@ -81,6 +82,7 @@ public final class FeedbackSessionAttributes extends EntityAttributes<FeedbackSe
         feedbackSessionAttributes.deletedTime = fs.getDeletedTime();
         feedbackSessionAttributes.startTime = fs.getStartTime();
         feedbackSessionAttributes.endTime = fs.getEndTime();
+        feedbackSessionAttributes.sessionLastEditTime = fs.getSessionLastEditTime();
         feedbackSessionAttributes.sessionVisibleFromTime = fs.getSessionVisibleFromTime();
         feedbackSessionAttributes.resultsVisibleFromTime = fs.getResultsVisibleFromTime();
         feedbackSessionAttributes.timeZone = fs.getTimeZone();
@@ -165,8 +167,8 @@ public final class FeedbackSessionAttributes extends EntityAttributes<FeedbackSe
     @Override
     public FeedbackSession toEntity() {
         return new FeedbackSession(feedbackSessionName, courseId, creatorEmail, instructions,
-                createdTime, deletedTime, startTime, endTime, sessionVisibleFromTime, resultsVisibleFromTime,
-                timeZone, getGracePeriodMinutes(),
+                createdTime, deletedTime, startTime, endTime, sessionLastEditTime, sessionVisibleFromTime,
+                resultsVisibleFromTime, timeZone, getGracePeriodMinutes(),
                 sentOpeningSoonEmail, sentOpenEmail, sentClosingEmail, sentClosedEmail, sentPublishedEmail,
                 isOpeningEmailEnabled, isClosingEmailEnabled, isPublishedEmailEnabled, new HashMap<>(studentDeadlines),
                 new HashMap<>(instructorDeadlines));
@@ -406,9 +408,11 @@ public final class FeedbackSessionAttributes extends EntityAttributes<FeedbackSe
                + ", creatorEmail=" + creatorEmail + ", instructions=" + instructions
                + ", createdTime=" + createdTime + ", deletedTime=" + deletedTime
                + ", startTime=" + startTime
-               + ", endTime=" + endTime + ", sessionVisibleFromTime="
-               + sessionVisibleFromTime + ", resultsVisibleFromTime="
-               + resultsVisibleFromTime + ", timeZone=" + timeZone
+               + ", endTime=" + endTime
+               + ", sessionLastEditTime=" + sessionLastEditTime
+               + ", sessionVisibleFromTime=" + sessionVisibleFromTime
+               + ", resultsVisibleFromTime=" + resultsVisibleFromTime
+               + ", timeZone=" + timeZone
                + ", gracePeriod=" + getGracePeriodMinutes() + "min"
                + ", sentOpeningSoonEmail=" + sentOpeningSoonEmail
                + ", sentOpenEmail=" + sentOpenEmail
@@ -506,6 +510,14 @@ public final class FeedbackSessionAttributes extends EntityAttributes<FeedbackSe
 
     public void setEndTime(Instant endTime) {
         this.endTime = endTime;
+    }
+
+    public Instant getSessionLastEditTime() {
+        return sessionLastEditTime;
+    }
+
+    public void setSessionLastEditTime(Instant sessionLastEditTime) {
+        this.sessionLastEditTime = sessionLastEditTime;
     }
 
     public Instant getSessionVisibleFromTime() {
@@ -627,6 +639,7 @@ public final class FeedbackSessionAttributes extends EntityAttributes<FeedbackSe
         updateOptions.instructionsOption.ifPresent(s -> instructions = s);
         updateOptions.startTimeOption.ifPresent(s -> startTime = s);
         updateOptions.endTimeOption.ifPresent(s -> endTime = s);
+        updateOptions.sessionLastEditTimeOption.ifPresent(s -> sessionLastEditTime = s);
         updateOptions.sessionVisibleFromTimeOption.ifPresent(s -> sessionVisibleFromTime = s);
         updateOptions.resultsVisibleFromTimeOption.ifPresent(s -> resultsVisibleFromTime = s);
         updateOptions.timeZoneOption.ifPresent(s -> timeZone = s);
@@ -695,6 +708,7 @@ public final class FeedbackSessionAttributes extends EntityAttributes<FeedbackSe
         private UpdateOption<String> instructionsOption = UpdateOption.empty();
         private UpdateOption<Instant> startTimeOption = UpdateOption.empty();
         private UpdateOption<Instant> endTimeOption = UpdateOption.empty();
+        private UpdateOption<Instant> sessionLastEditTimeOption = UpdateOption.empty();
         private UpdateOption<Instant> sessionVisibleFromTimeOption = UpdateOption.empty();
         private UpdateOption<Instant> resultsVisibleFromTimeOption = UpdateOption.empty();
         private UpdateOption<String> timeZoneOption = UpdateOption.empty();
@@ -733,6 +747,7 @@ public final class FeedbackSessionAttributes extends EntityAttributes<FeedbackSe
                     + ", instructions = " + instructionsOption
                     + ", startTime = " + startTimeOption
                     + ", endTime = " + endTimeOption
+                    + ", sessionLastEditTime = " + sessionLastEditTimeOption
                     + ", sessionVisibleFromTime = " + sessionVisibleFromTimeOption
                     + ", resultsVisibleFromTime = " + resultsVisibleFromTimeOption
                     + ", timeZone = " + timeZoneOption
@@ -832,6 +847,13 @@ public final class FeedbackSessionAttributes extends EntityAttributes<FeedbackSe
             assert endTime != null;
 
             updateOptions.endTimeOption = UpdateOption.of(endTime);
+            return thisBuilder;
+        }
+
+        public B withSessionLastEditTime(Instant sessionLastEditTime) {
+            assert sessionLastEditTime != null;
+
+            updateOptions.sessionLastEditTimeOption = UpdateOption.of(sessionLastEditTime);
             return thisBuilder;
         }
 

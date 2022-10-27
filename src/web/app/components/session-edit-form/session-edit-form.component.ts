@@ -51,6 +51,9 @@ export class SessionEditFormComponent {
     submissionEndDate: getDefaultDateFormat(),
     gracePeriod: 0,
 
+    sessionLastEditTime: { hour: 0, minute: 0 },
+    sessionLastEditDate: { year: 0, month: 0, day: 0 },
+
     sessionVisibleSetting: SessionVisibleSetting.AT_OPEN,
     customSessionVisibleTime: getDefaultTimeFormat(),
     customSessionVisibleDate: getDefaultDateFormat(),
@@ -93,10 +96,10 @@ export class SessionEditFormComponent {
 
   // event emission
   @Output()
-  addNewSessionEvent: EventEmitter<void> = new EventEmitter<void>();
+  addNewSessionEvent: EventEmitter<Date> = new EventEmitter<Date>();
 
   @Output()
-  editExistingSessionEvent: EventEmitter<void> = new EventEmitter<void>();
+  editExistingSessionEvent: EventEmitter<Date> = new EventEmitter<Date>();
 
   @Output()
   cancelEditingSessionEvent: EventEmitter<void> = new EventEmitter<void>();
@@ -202,13 +205,15 @@ export class SessionEditFormComponent {
    * Handles submit button click event.
    */
   submitFormHandler(): void {
+    const now: Date = new Date();
+
     // resolve local date time to timestamp
     if (this.formMode === SessionEditFormMode.ADD) {
-      this.addNewSessionEvent.emit();
+      this.addNewSessionEvent.emit(now);
     }
 
     if (this.formMode === SessionEditFormMode.EDIT) {
-      this.editExistingSessionEvent.emit();
+      this.editExistingSessionEvent.emit(now);
     }
   }
 

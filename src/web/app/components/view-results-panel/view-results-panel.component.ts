@@ -41,6 +41,7 @@ export class ViewResultsPanelComponent {
     instructions: '',
     submissionStartTimestamp: 0,
     submissionEndTimestamp: 0,
+    sessionLastEditTimestamp: 0,
     gracePeriod: 0,
     sessionVisibleSetting: SessionVisibleSetting.AT_OPEN,
     responseVisibleSetting: ResponseVisibleSetting.AT_VISIBLE,
